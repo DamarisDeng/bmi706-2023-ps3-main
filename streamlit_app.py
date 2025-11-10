@@ -4,7 +4,7 @@ import streamlit as st
 
 ### P1.2 ###
 
-# Move this code into `load_data` function {{
+@st.cache_data
 def load_data():
     cancer_df = pd.read_csv("https://raw.githubusercontent.com/hms-dbmi/bmi706-2022/main/cancer_data/cancer_ICD10.csv").melt(  # type: ignore
         id_vars=["Country", "Year", "Cancer", "Sex"],
@@ -24,12 +24,6 @@ def load_data():
 
     df = df.groupby(["Country", "Year", "Cancer", "Age", "Sex"]).sum().reset_index()
     df["Rate"] = df["Deaths"] / df["Pop"] * 100_000
-    return df
-
-
-@st.cache_data
-def load_data():
-    df = load_data()
     return df
 
 
